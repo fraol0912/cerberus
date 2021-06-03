@@ -1,3 +1,3 @@
 export interface Authorizer {
-  isValid(): Promise<boolean>;
+  isValid(password: string): Promise<boolean>;
 }
