@@ -1,0 +1,16 @@
+{
+  "name": "@cerberus/core",
+  "version": "0.0.0",
+  "description": "> TODO: description",
+  "author": "fraol0912 <fraol0912@gmail.com>",
+  "homepage": "",
+  "license": "MIT",
+  "main": "dist/main.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "yarn tsc",
+    "test": "yarn jest"
+  }
+}
