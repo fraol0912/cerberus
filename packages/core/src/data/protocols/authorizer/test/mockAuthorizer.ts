@@ -9,11 +9,11 @@ class DummyAuthorizer implements Authorizer {
 }
 
 export class RejectingAuthorizer extends DummyAuthorizer {
-  valid = false;
+  protected valid = false;
 }
 
 export class AcceptingAuthorizer extends DummyAuthorizer {
-  valid = true;
+  protected valid = true;
 }
 
 export class AuthorizerSpy implements Authorizer {
