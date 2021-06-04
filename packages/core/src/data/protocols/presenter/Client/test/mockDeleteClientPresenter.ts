@@ -1,6 +1,6 @@
 import { DeleteClientPresenter } from "../DeleteClientPresenter";
 
-export class CreateClientPresenterSpy implements DeleteClientPresenter {
+export class DeleteClientPresenterSpy implements DeleteClientPresenter {
   calledWithData: boolean;
 
   present(deleted: boolean) {
