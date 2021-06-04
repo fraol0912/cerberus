@@ -1,4 +1,4 @@
-import { makeClient } from "packages/core/src/entities/Client/test/mockClient";
+import { makeClient } from "../../../../../entities/Client/test/mockClient";
 import { AddClientGateway, AddClientParameter } from "../AddClientGateway";
 
 export class AddClientGatewaySpy implements AddClientGateway {
