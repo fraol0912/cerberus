@@ -12,6 +12,6 @@
   "scripts": {
     "build": "yarn tsc -p tsconfig-build.json",
     "test": "yarn jest",
-    "clean": "yarn rimraf dist"
+    "clean": "yarn rimraf dist coverage"
   }
 }
