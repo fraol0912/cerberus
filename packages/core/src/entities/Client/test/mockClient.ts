@@ -1,8 +1,8 @@
 import { Client } from "../Client";
 
-export function makeClient() {
+export function makeClient({ name, id }: { name: string; id: string }) {
   return new Client({
-    id: "id",
-    name: "name",
+    id,
+    name,
   });
 }

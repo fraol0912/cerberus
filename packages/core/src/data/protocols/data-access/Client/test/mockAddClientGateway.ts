@@ -6,6 +6,11 @@ export class AddClientGatewaySpy implements AddClientGateway {
 
   addClient(clientParams: AddClientParameter) {
     this.calledWithClientParams = clientParams;
-    return Promise.resolve(makeClient());
+    return Promise.resolve(
+      makeClient({
+        name: clientParams.name,
+        id: "id",
+      })
+    );
   }
 }
