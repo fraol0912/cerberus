@@ -1,9 +1,9 @@
-import { UseCase } from "../UseCase";
-import { UnauthorizedError } from "../../protocols/errors";
-import { Authorizer } from "../../protocols/authorizer/Authorizer";
-import { UpdateClientRequest } from "../../protocols/requests";
-import { UpdateClientGateway } from "../../protocols/data-access";
-import { UpdateClientPresenter } from "../../protocols/presenter";
+import { UseCase } from "../..";
+import { UnauthorizedError } from "../../../protocols/errors";
+import { UpdateClientRequest } from "../../../protocols/requests";
+import { Authorizer } from "../../../protocols/authorizer/Authorizer";
+import { UpdateClientGateway } from "../../../protocols/data-access";
+import { UpdateClientPresenter } from "../../../protocols/presenter";
 
 export class UpdateClientUseCase implements UseCase {
   private authorizer: Authorizer;
@@ -35,6 +35,7 @@ export class UpdateClientUseCase implements UseCase {
     });
   }
 }
+
 interface UpdateClientUseCaseConfig {
   authorizer: Authorizer;
   updateClient: UpdateClientGateway;

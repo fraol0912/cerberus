@@ -1,9 +1,9 @@
-import { UseCase } from "../UseCase";
-import { Authorizer } from "../../protocols/authorizer";
-import { UnauthorizedError } from "../../protocols/errors";
-import { DeleteClientRequest } from "../../protocols/requests";
-import { DeleteClientGateway } from "../../protocols/data-access";
-import { DeleteClientPresenter } from "../../protocols/presenter";
+import { UseCase } from "../..";
+import { Authorizer } from "../../../protocols/authorizer";
+import { UnauthorizedError } from "../../../protocols/errors";
+import { DeleteClientRequest } from "../../../protocols/requests";
+import { DeleteClientGateway } from "../../../protocols/data-access";
+import { DeleteClientPresenter } from "../../../protocols/presenter";
 
 export class DeleteClientUseCase implements UseCase {
   private authorizer: Authorizer;
