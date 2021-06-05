@@ -19,6 +19,9 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "resolveJsonModule": true,
-    "baseUrl": "."
+    "baseUrl": "packages",
+    "paths": {
+      "@cerberus/core/*": ["core/src/*"]
+    }
   }
 }

@@ -2,11 +2,11 @@ import {
   AcceptingAuthorizer,
   AuthorizerSpy,
   RejectingAuthorizer,
-} from "../../../protocols/authorizer/test";
+} from "@cerberus/core/protocols/authorizer/test";
 import { GetClientUseCase } from "./GetClientUseCase";
-import { UnauthorizedError } from "../../../protocols/errors";
-import { GetClientGatewaySpy } from "../../../protocols/data-access/Client/test";
-import { GetClientPresenterSpy } from "../../../protocols/presenter/Client/test";
+import { UnauthorizedError } from "@cerberus/core/protocols/errors";
+import { GetClientGatewaySpy } from "@cerberus/core/protocols/data-access/Client/test";
+import { GetClientPresenterSpy } from "@cerberus/core/protocols/presenter/Client/test";
 
 describe("Get Client Use Case", () => {
   it("throws the authorizer rejects", async () => {

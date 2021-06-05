@@ -1,5 +1,8 @@
-import { UpdateClientGateway, UpdateClientParameter } from "..";
-import { makeClient } from "../../../../entities/Client/test";
+import {
+  UpdateClientGateway,
+  UpdateClientParameter,
+} from "../UpdateClientGateway";
+import { makeClient } from "@cerberus/core/entities/Client/test";
 
 export class UpdateClientGatewaySpy implements UpdateClientGateway {
   calledWithId: string;

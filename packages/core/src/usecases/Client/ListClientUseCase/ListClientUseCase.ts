@@ -1,12 +1,12 @@
-import { UseCase } from "../..";
+import { UseCase } from "@cerberus/core/usecases";
 import {
   ClientResponse,
   ListClientPresenter,
-} from "../../../protocols/presenter";
-import { Authorizer } from "../../../protocols/authorizer";
-import { UnauthorizedError } from "../../../protocols/errors";
-import { ListClientRequest } from "../../../protocols/requests";
-import { ListClientGateway } from "../../../protocols/data-access";
+} from "@cerberus/core/protocols/presenter";
+import { Authorizer } from "@cerberus/core/protocols/authorizer";
+import { UnauthorizedError } from "@cerberus/core/protocols/errors";
+import { ListClientRequest } from "@cerberus/core/protocols/requests";
+import { ListClientGateway } from "@cerberus/core/protocols/data-access";
 
 export class ListClientUseCase implements UseCase {
   authorizer: Authorizer;

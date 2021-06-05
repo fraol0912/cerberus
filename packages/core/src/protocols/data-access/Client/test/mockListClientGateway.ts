@@ -1,5 +1,5 @@
-import { ListClientGateway } from "..";
-import { makeClient } from "../../../../entities/Client/test";
+import { ListClientGateway } from "../ListClientGateway";
+import { makeClient } from "@cerberus/core/entities/Client/test";
 
 export class ListClientGatewaySpy implements ListClientGateway {
   called: boolean = false;

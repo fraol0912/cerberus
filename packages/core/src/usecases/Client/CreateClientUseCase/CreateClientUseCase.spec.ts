@@ -2,11 +2,11 @@ import {
   AuthorizerSpy,
   AcceptingAuthorizer,
   RejectingAuthorizer,
-} from "../../../protocols/authorizer/test";
+} from "@cerberus/core/protocols/authorizer/test";
 import { CreateClientUseCase } from "./CreateClientUseCase";
-import { UnauthorizedError } from "../../../protocols/errors";
-import { AddClientGatewaySpy } from "../../../protocols/data-access/Client/test";
-import { CreateClientPresenterSpy } from "../../../protocols/presenter/Client/test";
+import { UnauthorizedError } from "@cerberus/core/protocols/errors";
+import { AddClientGatewaySpy } from "@cerberus/core/protocols/data-access/Client/test";
+import { CreateClientPresenterSpy } from "@cerberus/core/protocols/presenter/Client/test";
 
 describe("Create Client Use Case", () => {
   it("throws an error if the authorizer rejects", async () => {

@@ -1,9 +1,9 @@
-import { UseCase } from "../..";
-import { UnauthorizedError } from "../../../protocols/errors";
-import { UpdateClientRequest } from "../../../protocols/requests";
-import { Authorizer } from "../../../protocols/authorizer/Authorizer";
-import { UpdateClientGateway } from "../../../protocols/data-access";
-import { UpdateClientPresenter } from "../../../protocols/presenter";
+import { UseCase } from "@cerberus/core/usecases";
+import { UnauthorizedError } from "@cerberus/core/protocols/errors";
+import { UpdateClientRequest } from "@cerberus/core/protocols/requests";
+import { UpdateClientPresenter } from "@cerberus/core/protocols/presenter";
+import { UpdateClientGateway } from "@cerberus/core/protocols/data-access";
+import { Authorizer } from "@cerberus/core/protocols/authorizer/Authorizer";
 
 export class UpdateClientUseCase implements UseCase {
   private authorizer: Authorizer;

@@ -1,5 +1,5 @@
-import { GetClientGateway } from "..";
-import { makeClient } from "../../../../entities/Client/test";
+import { GetClientGateway } from "../GetClientGateway";
+import { makeClient } from "@cerberus/core/entities/Client/test";
 
 export class GetClientGatewaySpy implements GetClientGateway {
   calledWithId: string;

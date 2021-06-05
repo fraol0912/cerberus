@@ -1,9 +1,9 @@
-import { UseCase } from "../..";
-import { Authorizer } from "../../../protocols/authorizer";
-import { UnauthorizedError } from "../../../protocols/errors";
-import { DeleteClientRequest } from "../../../protocols/requests";
-import { DeleteClientGateway } from "../../../protocols/data-access";
-import { DeleteClientPresenter } from "../../../protocols/presenter";
+import { UseCase } from "@cerberus/core/usecases";
+import { Authorizer } from "@cerberus/core/protocols/authorizer";
+import { UnauthorizedError } from "@cerberus/core/protocols/errors";
+import { DeleteClientRequest } from "@cerberus/core/protocols/requests";
+import { DeleteClientGateway } from "@cerberus/core/protocols/data-access";
+import { DeleteClientPresenter } from "@cerberus/core/protocols/presenter";
 
 export class DeleteClientUseCase implements UseCase {
   private authorizer: Authorizer;

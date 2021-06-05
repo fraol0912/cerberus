@@ -1,4 +1,4 @@
-import { Client } from "../../../entities";
+import { Client } from "@cerberus/core/entities";
 
 export interface AddClientGateway {
   addClient(clientParams: AddClientParameter): Promise<Client>;
