@@ -1,9 +1,9 @@
 import { UseCase } from "../UseCase";
-import { Authorizer } from "../../data/protocols/authorizer";
-import { UnauthorizedError } from "../../data/protocols/errors";
-import { GetClientRequest } from "../../data/protocols/requests";
-import { GetClientGateway } from "../../data/protocols/data-access";
-import { GetClientPresenter } from "../../data/protocols/presenter";
+import { Authorizer } from "../../protocols/authorizer";
+import { UnauthorizedError } from "../../protocols/errors";
+import { GetClientRequest } from "../../protocols/requests";
+import { GetClientGateway } from "../../protocols/data-access";
+import { GetClientPresenter } from "../../protocols/presenter";
 
 export class GetClientUseCase implements UseCase {
   authorizer: Authorizer;

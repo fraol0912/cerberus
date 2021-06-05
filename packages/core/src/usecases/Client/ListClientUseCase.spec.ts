@@ -2,11 +2,11 @@ import {
   AcceptingAuthorizer,
   AuthorizerSpy,
   RejectingAuthorizer,
-} from "../../data/protocols/authorizer/test/mockAuthorizer";
+} from "../../protocols/authorizer/test/mockAuthorizer";
 import { ListClientUseCase } from "./ListClientUseCase";
-import { UnauthorizedError } from "../../data/protocols/errors";
-import { ListClientGatewaySpy } from "../../data/protocols/data-access/Client/test/";
-import { ListClientPresenterSpy } from "../../data/protocols/presenter/Client/test/";
+import { UnauthorizedError } from "../../protocols/errors";
+import { ListClientGatewaySpy } from "../../protocols/data-access/Client/test";
+import { ListClientPresenterSpy } from "../../protocols/presenter/Client/test";
 
 describe("List Client Use Case", () => {
   it("throws the authorizer rejects", async () => {

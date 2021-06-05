@@ -2,11 +2,11 @@ import {
   AcceptingAuthorizer,
   AuthorizerSpy,
   RejectingAuthorizer,
-} from "../../data/protocols/authorizer/test/";
+} from "../../protocols/authorizer/test";
 import { DeleteClientUseCase } from "./DeleteClientUseCase";
-import { UnauthorizedError } from "../../data/protocols/errors/";
-import { DeleteClientGatewaySpy } from "../../data/protocols/data-access/Client/test/";
-import { DeleteClientPresenterSpy } from "../../data/protocols/presenter/Client/test/";
+import { UnauthorizedError } from "../../protocols/errors";
+import { DeleteClientGatewaySpy } from "../../protocols/data-access/Client/test";
+import { DeleteClientPresenterSpy } from "../../protocols/presenter/Client/test";
 
 describe("Delete Client Use Case", () => {
   it("throws an error if the authorizer rejects", async () => {
