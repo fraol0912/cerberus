@@ -6,9 +6,13 @@ const factory = new UseCaseFactory();
 describe("Use Case Factory", () => {
   it("registers a usecase", () => {
     const usecase = new UseCaseDummy();
-    factory.register("Add Client Use Case", usecase);
+    factory.register("Use Case", usecase);
+    const usecaseFromFactory = factory.getUseCase("Use Case") as UseCaseDummy;
+    usecaseFromFactory.execute();
 
-    expect(factory.getUseCase("Add Client Use Case")).toBe(usecase);
+    expect(usecase.called).toBe(true);
+    expect(usecaseFromFactory).toBe(usecase);
+    expect(usecaseFromFactory.called).toBe(true);
   });
 
   it("throws if requested to return an un registered usecase", () => {

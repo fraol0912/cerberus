@@ -1,5 +1,9 @@
 import { UseCase } from "../UseCase";
 
 export class UseCaseDummy implements UseCase {
-  execute() {}
+  called: boolean = false;
+
+  execute() {
+    this.called = true;
+  }
 }
