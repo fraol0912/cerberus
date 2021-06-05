@@ -1,4 +1,4 @@
-import { DeleteClientGateway } from "../DeleteClientGateway";
+import { DeleteClientGateway } from "..";
 
 export class DeleteClientGatewaySpy implements DeleteClientGateway {
   calledWithId: string;

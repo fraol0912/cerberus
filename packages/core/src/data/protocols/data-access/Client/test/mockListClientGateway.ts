@@ -1,5 +1,5 @@
-import { makeClient } from "../../../../../entities/Client/test/mockClient";
-import { ListClientGateway } from "../ListClientGateway";
+import { ListClientGateway } from "..";
+import { makeClient } from "../../../../../entities/Client/test";
 
 export class ListClientGatewaySpy implements ListClientGateway {
   called: boolean = false;

@@ -1,9 +1,9 @@
-import { Authorizer } from "../../data/protocols/authorizer/Authorizer";
-import { AddClientGateway } from "../../data/protocols/data-access/Client/AddClientGateway";
-import { UnauthorizedError } from "../../data/protocols/errors/";
-import { CreateClientPresenter } from "../../data/protocols/presenter";
-import { CreateClientRequest } from "../../data/protocols/requests";
 import { UseCase } from "../UseCase";
+import { Authorizer } from "../../data/protocols/authorizer/";
+import { UnauthorizedError } from "../../data/protocols/errors/";
+import { CreateClientRequest } from "../../data/protocols/requests";
+import { AddClientGateway } from "../../data/protocols/data-access/";
+import { CreateClientPresenter } from "../../data/protocols/presenter";
 
 export class CreateClientUseCase implements UseCase {
   private authorizer: Authorizer;

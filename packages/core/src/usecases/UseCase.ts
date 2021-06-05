@@ -1,4 +1,4 @@
-import { UseCaseRequest } from "../data/protocols/requests/UseCaseRequest";
+import { UseCaseRequest } from "../data/protocols/requests";
 
 export interface UseCase {
   execute(request: UseCaseRequest): void;

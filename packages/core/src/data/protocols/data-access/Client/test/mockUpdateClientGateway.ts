@@ -1,8 +1,5 @@
-import { makeClient } from "../../../../../entities/Client/test/mockClient";
-import {
-  UpdateClientGateway,
-  UpdateClientParameter,
-} from "../UpdateClientGateway";
+import { UpdateClientGateway, UpdateClientParameter } from "..";
+import { makeClient } from "../../../../../entities/Client/test";
 
 export class UpdateClientGatewaySpy implements UpdateClientGateway {
   calledWithId: string;

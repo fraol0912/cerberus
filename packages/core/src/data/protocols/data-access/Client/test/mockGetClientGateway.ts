@@ -1,5 +1,5 @@
-import { makeClient } from "../../../../../entities/Client/test/mockClient";
-import { GetClientGateway } from "../GetClientGateway";
+import { GetClientGateway } from "..";
+import { makeClient } from "../../../../../entities/Client/test/";
 
 export class GetClientGatewaySpy implements GetClientGateway {
   calledWithId: string;

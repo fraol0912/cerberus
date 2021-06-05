@@ -1,12 +1,12 @@
-import { Authorizer } from "../../data/protocols/authorizer/Authorizer";
-import { ListClientGateway } from "../../data/protocols/data-access/Client/ListClientGateway";
-import { UnauthorizedError } from "../../data/protocols/errors";
+import { UseCase } from "../UseCase";
 import {
   ClientResponse,
   ListClientPresenter,
 } from "../../data/protocols/presenter";
+import { Authorizer } from "../../data/protocols/authorizer";
+import { UnauthorizedError } from "../../data/protocols/errors";
+import { ListClientGateway } from "../../data/protocols/data-access";
 import { ListClientRequest } from "../../data/protocols/requests";
-import { UseCase } from "../UseCase";
 
 export class ListClientUseCase implements UseCase {
   authorizer: Authorizer;
