@@ -1,4 +1,4 @@
-import { Admin } from "./LoadAdminGatewayProtocols";
+import { Admin } from "../../../entities";
 
 export interface LoadAdminGateway {
   loadAdmin(): Promise<Admin>;
