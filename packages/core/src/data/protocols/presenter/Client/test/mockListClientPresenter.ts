@@ -1,9 +1,9 @@
-import { ListClientPresenter, Client } from "../ListClientPresenter";
+import { ListClientPresenter, ClientResponse } from "../ListClientPresenter";
 
 export class ListClientPresenterSpy implements ListClientPresenter {
-  calledWithData: Client[];
+  calledWithData: ClientResponse[];
 
-  present(data: Client[]) {
+  present(data: ClientResponse[]) {
     this.calledWithData = data;
   }
 }

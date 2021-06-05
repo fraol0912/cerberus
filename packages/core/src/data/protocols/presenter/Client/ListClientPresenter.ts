@@ -1,7 +1,7 @@
 export interface ListClientPresenter {
-  present(clients: Client[]): void;
+  present(clients: ClientResponse[]): void;
 }
 
-export interface Client {
+export interface ClientResponse {
   name: string;
 }
