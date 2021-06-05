@@ -1,5 +1,7 @@
-export interface ListClientRequest {
+import { UseCaseRequest } from "../UseCaseRequest";
+
+export interface ListClientRequest extends UseCaseRequest {
   after: string;
-  limit: string;
+  limit: number;
   sort: string;
 }
