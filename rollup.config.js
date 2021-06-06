@@ -1,3 +1,4 @@
+import { terser } from "rollup-plugin-terser";
 import typescript from "rollup-plugin-typescript2";
 
 export default (pkg) => {
@@ -19,6 +20,7 @@ export default (pkg) => {
         cacheRoot: ".rollup.cache",
         tsconfig: "./tsconfig-build.json",
       }),
+      terser(),
     ],
   };
 };
