@@ -21,7 +21,8 @@
     "resolveJsonModule": true,
     "baseUrl": "packages",
     "paths": {
-      "@cerberus/core/*": ["core/src/*"]
+      "@cerberus/core/*": ["core/src/*"],
+      "@cerberus/helpers/*": ["helpers/src/*"]
     }
   }
 }

@@ -1,0 +1,17 @@
+{
+  "name": "@cerberus/helpers",
+  "version": "0.0.0",
+  "description": "> TODO: description",
+  "author": "fraol0912 <fraol0912@gmail.com>",
+  "homepage": "",
+  "license": "MIT",
+  "main": "dist/main.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "test": "yarn jest",
+    "build": "yarn tsc -p tsconfig-build.json",
+    "clean": "yarn rimraf dist coverage"
+  }
+}
