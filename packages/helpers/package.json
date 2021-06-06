@@ -6,6 +6,7 @@
   "license": "MIT",
   "main": "dist/main.js",
   "module": "dist/main.es.js",
+  "types": "dist/main.d.ts",
   "files": [
     "dist"
   ],
