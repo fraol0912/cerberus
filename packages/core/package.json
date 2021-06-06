@@ -3,15 +3,15 @@
   "version": "0.0.0",
   "description": "> TODO: description",
   "author": "fraol0912 <fraol0912@gmail.com>",
-  "homepage": "",
   "license": "MIT",
   "main": "dist/main.js",
+  "module": "dist/main.es.js",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "yarn tsc -p tsconfig-build.json",
     "test": "yarn jest",
-    "clean": "yarn rimraf dist coverage"
+    "build": "yarn rollup -c",
+    "clean": "yarn rimraf dist coverage .rollup.cache"
   }
 }
