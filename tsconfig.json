@@ -20,6 +20,11 @@
     "experimentalDecorators": true,
     "resolveJsonModule": true,
     "baseUrl": "packages",
-    "declaration": true
+    "declaration": true,
+    "paths": {
+      "@cerberus/core/*": ["core/src/*"],
+      "@cerberus/mongo/*": ["mongo/src/*"],
+      "@cerberus/helpers/*": ["helpers/src/*"]
+    }
   }
 }
