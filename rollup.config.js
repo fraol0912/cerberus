@@ -17,7 +17,7 @@ export default (pkg) => {
     external: [...Object.keys(pkg.dependencies || {})],
     plugins: [
       typescript({
-        cacheRoot: ".rollup.cache",
+        cacheRoot: ".cache",
         tsconfig: "./tsconfig-build.json",
       }),
       terser(),
