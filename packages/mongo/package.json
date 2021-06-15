@@ -13,7 +13,7 @@
   "scripts": {
     "test": "yarn jest",
     "build": "yarn rollup -c",
-    "clean": "yarn rimraf dist coverage .rollup.cache"
+    "clean": "yarn rimraf dist coverage .cache"
   },
   "dependencies": {
     "mongoose": "^5.12.13"
