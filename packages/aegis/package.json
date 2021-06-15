@@ -1,0 +1,22 @@
+{
+  "name": "@cerberus/aegis",
+  "version": "0.0.0",
+  "description": "> TODO: description",
+  "author": "fraol0912 <fraol0912@gmail.com>",
+  "license": "MIT",
+  "main": "dist/main.js",
+  "module": "dist/main.es.js",
+  "types": "dist/main.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "test": "yarn jest",
+    "build": "yarn rollup -c",
+    "clean": "yarn rimraf dist coverage .cache"
+  },
+  "dependencies": {
+    "@types/websocket": "^1.0.2",
+    "websocket": "^1.0.34"
+  }
+}
