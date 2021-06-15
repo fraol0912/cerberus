@@ -24,7 +24,8 @@
     "paths": {
       "@cerberus/core/*": ["core/src/*"],
       "@cerberus/mongo/*": ["mongo/src/*"],
-      "@cerberus/helpers/*": ["helpers/src/*"]
+      "@cerberus/helpers/*": ["helpers/src/*"],
+      "@cerberus/aegis/*": ["aegis/src/*"]
     }
   }
 }
