@@ -28,7 +28,7 @@ export class ClientRepository
     await client.save();
 
     return new Client({
-      id: client._id,
+      id: client._id.toString(),
       name: client.name,
     });
   }
@@ -45,7 +45,7 @@ export class ClientRepository
     }
 
     return new Client({
-      id: client._id,
+      id: client._id.toString(),
       name: client.name,
     });
   }
@@ -66,7 +66,7 @@ export class ClientRepository
     await client.save();
 
     return new Client({
-      id: client._id,
+      id: client._id.toString(),
       name: client.name,
     });
   }
@@ -92,7 +92,7 @@ export class ClientRepository
     const result = await ClientModel.find();
     const clients = result.map((model) => {
       return new Client({
-        id: model._id,
+        id: model._id.toString(),
         name: model.name,
       });
     });

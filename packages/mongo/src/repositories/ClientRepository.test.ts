@@ -22,7 +22,7 @@ describe("Client Repository", () => {
       });
       const retrieved = await repo.getClient(client.getId());
 
-      expect(client.getId()).toStrictEqual(retrieved.getId());
+      expect(client.getId()).toBe(retrieved.getId());
       expect(client.getName()).toBe(retrieved.getName());
     });
   });
@@ -57,7 +57,7 @@ describe("Client Repository", () => {
         name: `${addedClient.getName()}-updated`,
       });
 
-      expect(addedClient.getId()).toStrictEqual(updatedClient.getId());
+      expect(addedClient.getId()).toBe(updatedClient.getId());
       expect(`${addedClient.getName()}-updated`).toBe(updatedClient.getName());
     });
 
