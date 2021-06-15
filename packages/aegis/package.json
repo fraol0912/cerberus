@@ -16,7 +16,9 @@
     "clean": "yarn rimraf dist coverage .cache"
   },
   "dependencies": {
-    "@types/websocket": "^1.0.2",
-    "websocket": "^1.0.34"
+    "socket.io": "^4.1.2"
+  },
+  "devDependencies": {
+    "socket.io-client": "^4.1.2"
   }
 }
