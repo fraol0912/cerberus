@@ -3,5 +3,6 @@ export interface ListClientPresenter {
 }
 
 export interface ClientResponse {
+  id: string;
   name: string;
 }

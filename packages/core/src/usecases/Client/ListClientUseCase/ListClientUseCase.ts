@@ -31,6 +31,7 @@ export class ListClientUseCase implements UseCase {
     const clientResponses: ClientResponse[] = clients.map<ClientResponse>(
       (client) => {
         return {
+          id: client.getId(),
           name: client.getName(),
         };
       }

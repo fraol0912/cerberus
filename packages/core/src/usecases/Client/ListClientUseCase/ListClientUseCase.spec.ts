@@ -92,6 +92,7 @@ describe("List Client Use Case", () => {
       });
     } catch {}
 
+    expect(presenter.calledWithData[0].id).toBe("id");
     expect(presenter.calledWithData[0].name).toBe("client_name");
   });
 });
