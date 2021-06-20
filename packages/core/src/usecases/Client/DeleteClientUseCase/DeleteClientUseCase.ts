@@ -27,7 +27,7 @@ export class DeleteClientUseCase implements UseCase {
 
     const deleted = await this.deleteClient.deleteClient(request.id);
 
-    this.presenter.present(deleted);
+    await this.presenter.present(deleted);
   }
 }
 interface DeleteClientUseCaseConfig {

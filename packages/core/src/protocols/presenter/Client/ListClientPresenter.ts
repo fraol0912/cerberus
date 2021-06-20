@@ -1,5 +1,7 @@
-export interface ListClientPresenter {
-  present(clients: ClientResponse[]): void;
+import { Presenter } from "../Presenter";
+
+export interface ListClientPresenter extends Presenter {
+  present(clients: ClientResponse[]): Promise<void>;
 }
 
 export interface ClientResponse {

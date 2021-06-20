@@ -1,5 +1,7 @@
-export interface GetClientPresenter {
-  present(data: GetClientResponse): void;
+import { Presenter } from "../Presenter";
+
+export interface GetClientPresenter extends Presenter {
+  present(data: GetClientResponse): Promise<void>;
 }
 
 export interface GetClientResponse {

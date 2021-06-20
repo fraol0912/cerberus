@@ -26,7 +26,7 @@ export class GetClientUseCase implements UseCase {
 
     const client = await this.loadClient.getClient(request.id);
 
-    this.presenter.present({
+    await this.presenter.present({
       id: client.getId(),
       name: client.getName(),
     });

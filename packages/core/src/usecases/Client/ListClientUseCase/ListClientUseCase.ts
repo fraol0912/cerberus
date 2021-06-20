@@ -37,7 +37,7 @@ export class ListClientUseCase implements UseCase {
       }
     );
 
-    this.presenter.present(clientResponses);
+    await this.presenter.present(clientResponses);
   }
 }
 

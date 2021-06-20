@@ -6,7 +6,7 @@ import {
 export class CreateClientPresenterSpy implements CreateClientPresenter {
   calledWithData: CreateClientResponse;
 
-  present(data: CreateClientResponse) {
+  async present(data: CreateClientResponse) {
     this.calledWithData = data;
   }
 }

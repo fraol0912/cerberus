@@ -29,7 +29,7 @@ export class UpdateClientUseCase implements UseCase {
       name: request.name,
     });
 
-    this.presenter.present({
+    await this.presenter.present({
       id: client.getId(),
       name: client.getName(),
     });

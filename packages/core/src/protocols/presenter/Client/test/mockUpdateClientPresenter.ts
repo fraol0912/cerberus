@@ -6,7 +6,7 @@ import {
 export class UpdateClientPresenterSpy implements UpdateClientPresenter {
   calledWithData: UpdateClientResponse;
 
-  present(data: UpdateClientResponse) {
+  async present(data: UpdateClientResponse) {
     this.calledWithData = data;
   }
 }

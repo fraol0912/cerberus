@@ -1,5 +1,7 @@
-export interface UpdateClientPresenter {
-  present(data: UpdateClientResponse): void;
+import { Presenter } from "../Presenter";
+
+export interface UpdateClientPresenter extends Presenter {
+  present(data: UpdateClientResponse): Promise<void>;
 }
 
 export interface UpdateClientResponse {
