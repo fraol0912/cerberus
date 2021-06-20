@@ -7,8 +7,8 @@ export class Assertion {
   private id: string;
   private name: string;
   private issuer: string;
+  private subject: string;
   private audience: string;
-  private subscriber: string;
 
   private expiresAt: Date;
   private notBefore: Date;
@@ -18,10 +18,10 @@ export class Assertion {
     this.id = config.id;
     this.name = config.name;
     this.issuer = config.issuer;
+    this.subject = config.subject;
     this.audience = config.audience;
     this.expiresAt = config.expiresAt;
     this.notBefore = config.notBefore;
-    this.subscriber = config.subscriber;
     this.initiatedAt = config.initiatedAt;
 
     if (this.initiatedAt.getTime() > this.expiresAt.getTime()) {
@@ -55,12 +55,12 @@ export class Assertion {
     return this.issuer;
   }
 
-  getAudience() {
-    return this.audience;
+  getSubject() {
+    return this.subject;
   }
 
-  getSubscriber() {
-    return this.subscriber;
+  getAudience() {
+    return this.audience;
   }
 
   getInitializedAt() {
@@ -96,10 +96,10 @@ export class Assertion {
 
 interface AssertionConfig {
   id: string;
-  issuer: string;
-  subscriber: string;
-  audience: string;
   name: string;
+  issuer: string;
+  subject: string;
+  audience: string;
 
   expiresAt: Date;
   notBefore: Date;

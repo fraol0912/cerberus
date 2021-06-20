@@ -4,8 +4,8 @@ export function makeAssertion(opt?: {
   id?: string;
   name?: string;
   issuer?: string;
+  subject?: string;
   audience?: string;
-  subscriber?: string;
 
   expiresAt?: Date;
   notBefore?: Date;
@@ -15,8 +15,8 @@ export function makeAssertion(opt?: {
     id: opt?.id ? opt.id : "id",
     issuer: opt?.issuer ? opt.issuer : "issuer",
     name: opt?.name ? opt.name : "assertion_name",
+    subject: opt?.subject ? opt.subject : "subject",
     audience: opt?.audience ? opt.audience : "audience",
-    subscriber: opt?.subscriber ? opt.subscriber : "subscriber",
 
     initiatedAt: opt?.initiatedAt ? opt.initiatedAt : new Date(),
     notBefore: opt?.notBefore ? opt.notBefore : new Date(Date.now() + 1000),
