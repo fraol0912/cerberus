@@ -60,6 +60,7 @@ describe("Assertion", () => {
     expect(assertion.getId()).toBe("id");
     expect(assertion.getIssuer()).toBe("issuer");
     expect(assertion.getAudience()).toBe("audience");
+    expect(assertion.getName()).toBe("assertion_name");
     expect(assertion.getSubscriber()).toBe("subscriber");
     expect(assertion.getExpiresAt()).toBeInstanceOf(Date);
     expect(assertion.getNotBefore()).toBeInstanceOf(Date);
@@ -69,11 +70,13 @@ describe("Assertion", () => {
   it("sets options", () => {
     const assertion = makeAssertion({
       id: "assertion-id",
+      name: "assertion-name",
       issuer: "assertion-issuer",
       audience: "assertion-audience",
       subscriber: "assertion-subscriber",
     });
     expect(assertion.getId()).toBe("assertion-id");
+    expect(assertion.getName()).toBe("assertion-name");
     expect(assertion.getIssuer()).toBe("assertion-issuer");
     expect(assertion.getAudience()).toBe("assertion-audience");
     expect(assertion.getSubscriber()).toBe("assertion-subscriber");

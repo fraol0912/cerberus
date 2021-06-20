@@ -5,6 +5,7 @@ import {
 
 export class Assertion {
   private id: string;
+  private name: string;
   private issuer: string;
   private audience: string;
   private subscriber: string;
@@ -15,6 +16,7 @@ export class Assertion {
 
   constructor(config: AssertionConfig) {
     this.id = config.id;
+    this.name = config.name;
     this.issuer = config.issuer;
     this.audience = config.audience;
     this.expiresAt = config.expiresAt;
@@ -43,6 +45,10 @@ export class Assertion {
 
   getId() {
     return this.id;
+  }
+
+  getName() {
+    return this.name;
   }
 
   getIssuer() {
@@ -93,6 +99,7 @@ interface AssertionConfig {
   issuer: string;
   subscriber: string;
   audience: string;
+  name: string;
 
   expiresAt: Date;
   notBefore: Date;

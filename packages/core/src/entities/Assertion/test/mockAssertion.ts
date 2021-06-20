@@ -2,6 +2,7 @@ import { Assertion } from "../Assertion";
 
 export function makeAssertion(opt?: {
   id?: string;
+  name?: string;
   issuer?: string;
   audience?: string;
   subscriber?: string;
@@ -13,6 +14,7 @@ export function makeAssertion(opt?: {
   return new Assertion({
     id: opt?.id ? opt.id : "id",
     issuer: opt?.issuer ? opt.issuer : "issuer",
+    name: opt?.name ? opt.name : "assertion_name",
     audience: opt?.audience ? opt.audience : "audience",
     subscriber: opt?.subscriber ? opt.subscriber : "subscriber",
 
