@@ -1,3 +1,1 @@
-export interface UseCaseRequest {
-  encodedAdminPassword: string;
-}
+export interface UseCaseRequest {}

@@ -1,6 +1,6 @@
-import { UseCaseRequest } from "../UseCaseRequest";
+import { AdminUseCaseRequest } from "../AdminUseCaseRequest";
 
-export interface CreateAssertionRequest extends UseCaseRequest {
+export interface CreateAssertionRequest extends AdminUseCaseRequest {
   name: string;
   subject: string;
   expiresAt: Date;

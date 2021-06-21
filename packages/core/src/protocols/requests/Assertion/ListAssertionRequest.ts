@@ -1,3 +1,3 @@
-import { UseCaseRequest } from "../UseCaseRequest";
+import { AdminUseCaseRequest } from "../AdminUseCaseRequest";
 
-export interface ListAssertionRequest extends UseCaseRequest {}
+export interface ListAssertionRequest extends AdminUseCaseRequest {}

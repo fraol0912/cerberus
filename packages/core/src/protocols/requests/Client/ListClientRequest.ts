@@ -1,6 +1,6 @@
-import { UseCaseRequest } from "../UseCaseRequest";
+import { AdminUseCaseRequest } from "../AdminUseCaseRequest";
 
-export interface ListClientRequest extends UseCaseRequest {
+export interface ListClientRequest extends AdminUseCaseRequest {
   after?: string;
   limit?: number;
   sort?: string;

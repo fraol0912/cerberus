@@ -1,6 +1,6 @@
-import { UseCaseRequest } from "../UseCaseRequest";
+import { AdminUseCaseRequest } from "../AdminUseCaseRequest";
 
-export interface UpdateClientRequest extends UseCaseRequest {
+export interface UpdateClientRequest extends AdminUseCaseRequest {
   id: string;
   name: string;
 }
