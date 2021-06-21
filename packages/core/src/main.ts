@@ -13,3 +13,6 @@ export * from "@cerberus/core/protocols/errors";
 // authorizer
 export * from "@cerberus/core/main/decoder";
 export * from "@cerberus/core/main/authorizer";
+
+// repositories
+export * from "@cerberus/core/main/repositories";
