@@ -81,6 +81,8 @@ export class CreateAssertionUseCase implements UseCase {
       notBefore: assertion.getNotBefore(),
       expiresAt: assertion.getExpiresAt(),
       initiatedAt: assertion.getInitializedAt(),
+
+      valid: assertion.isValid(),
     });
   }
 }

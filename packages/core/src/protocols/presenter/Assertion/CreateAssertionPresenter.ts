@@ -20,4 +20,6 @@ export interface CreateAssertionResponse {
   initiatedAt: Date;
 
   token: string;
+
+  valid: boolean;
 }

@@ -252,5 +252,7 @@ describe("Create Assertion Use Case", () => {
     expect(presenter.calledWithData.subject.id).toBeDefined();
 
     expect(presenter.calledWithData.token).toBeDefined();
+
+    expect(presenter.calledWithData.valid).toBe(true);
   });
 });
