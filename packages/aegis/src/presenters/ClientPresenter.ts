@@ -10,18 +10,18 @@ import {
   CreateClientPresenter,
 } from "@cerberus/core";
 
-interface ClientModel {
+export interface ClientModel {
   id: string;
   name: string;
 }
 
-export class SocketGetClientPresenter implements GetClientPresenter {
+export class AegisGetClientPresenter implements GetClientPresenter {
   private data: {
     success: true;
     data: ClientModel;
   };
 
-  present(data: GetClientResponse) {
+  async present(data: GetClientResponse) {
     this.data = {
       success: true,
       data: {
@@ -36,7 +36,7 @@ export class SocketGetClientPresenter implements GetClientPresenter {
   }
 }
 
-export class SocketListClientPresenter implements ListClientPresenter {
+export class AegisListClientPresenter implements ListClientPresenter {
   data: {
     success: true;
     data: {
@@ -47,7 +47,7 @@ export class SocketListClientPresenter implements ListClientPresenter {
     };
   };
 
-  present(clients: ClientResponse[]) {
+  async present(clients: ClientResponse[]) {
     this.data = {
       success: true,
       data: {
@@ -61,13 +61,13 @@ export class SocketListClientPresenter implements ListClientPresenter {
   }
 }
 
-export class SocketUpdateClientPresenter implements UpdateClientPresenter {
+export class AegisUpdateClientPresenter implements UpdateClientPresenter {
   data: {
     success: true;
     data: ClientModel;
   };
 
-  present(data: UpdateClientResponse) {
+  async present(data: UpdateClientResponse) {
     this.data = {
       success: true,
       data: {
@@ -82,7 +82,7 @@ export class SocketUpdateClientPresenter implements UpdateClientPresenter {
   }
 }
 
-export class SocketDeleteClientPresenter implements DeleteClientPresenter {
+export class AegisDeleteClientPresenter implements DeleteClientPresenter {
   data: {
     success: true;
     data: {
@@ -90,7 +90,7 @@ export class SocketDeleteClientPresenter implements DeleteClientPresenter {
     };
   };
 
-  present(deleted: boolean) {
+  async present(deleted: boolean) {
     this.data = {
       success: true,
       data: {
@@ -104,13 +104,13 @@ export class SocketDeleteClientPresenter implements DeleteClientPresenter {
   }
 }
 
-export class SocketCreateClientPresenter implements CreateClientPresenter {
+export class AegisCreateClientPresenter implements CreateClientPresenter {
   private data: {
     success: true;
     data: ClientModel;
   };
 
-  present(data: CreateClientResponse) {
+  async present(data: CreateClientResponse) {
     this.data = {
       success: true,
       data: {

@@ -1,16 +1,27 @@
 import {
+  MainAuthorizer,
+  UpdateClientRequest,
+  UpdateClientUseCase,
+} from "@cerberus/core";
+import {
   errorReport,
   NoInputData,
   IdNotProvided,
   ClientNameNotGiven,
   AdminPasswordNotGiven,
 } from "@cerberus/aegis/errors";
-import { authorizer, clientRepoMongoDB } from "@cerberus/aegis/global";
-import { SocketUpdateClientPresenter } from "@cerberus/aegis/presenters";
-import { UpdateClientRequest, UpdateClientUseCase } from "@cerberus/core";
+import { ClientRepository } from "@cerberus/aegis/protocols";
+import { AegisUpdateClientPresenter } from "@cerberus/aegis/presenters";
 
 export class UpdateClientController {
-  async handle(data: any): Promise<any> {
+  private authorizer: MainAuthorizer;
+  private clientRepo: ClientRepository;
+  constructor(config: UpdateClientControllerConfig) {
+    this.authorizer = config.authorizer;
+    this.clientRepo = config.clientRepo;
+  }
+
+  async handle(data?: any): Promise<any> {
     try {
       this.validate(data);
       const request: UpdateClientRequest = this.buildRequest(data);
@@ -47,16 +58,21 @@ export class UpdateClientController {
   }
 
   private async updateClient(request: UpdateClientRequest) {
-    const socketGetClientPresenter = new SocketUpdateClientPresenter();
+    const getClientPresenter = new AegisUpdateClientPresenter();
 
     const usecase = new UpdateClientUseCase({
-      authorizer,
-      updateClient: clientRepoMongoDB,
-      presenter: socketGetClientPresenter,
+      authorizer: this.authorizer,
+      updateClient: this.clientRepo,
+      presenter: getClientPresenter,
     });
 
     await usecase.execute(request);
 
-    return socketGetClientPresenter.getData();
+    return getClientPresenter.getData();
   }
+}
+
+interface UpdateClientControllerConfig {
+  authorizer: MainAuthorizer;
+  clientRepo: ClientRepository;
 }

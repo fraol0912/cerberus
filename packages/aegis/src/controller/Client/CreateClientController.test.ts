@@ -1,93 +1,70 @@
-import { config } from "@cerberus/aegis/config/test";
-import { io, Socket } from "socket.io-client";
-import { closeDB, clearDB } from "@cerberus/mongo";
-import { closeAegisServer, createAegisServer } from "@cerberus/aegis/main";
+import { testController } from "@cerberus/aegis/test";
+import { clearDB, closeDB, connectToDB } from "@cerberus/mongo";
+import { CreateClientController } from "./CreateClientController";
 
-describe("client:create", () => {
-  let socket: Socket;
+let createClient: CreateClientController =
+  testController.getCreateClientController();
+
+const PASSWORD = Buffer.from("password", "utf-8").toString("base64");
+
+describe("Create Client Controller", () => {
   beforeAll(async () => {
-    await createAegisServer();
+    await connectToDB("mongodb://localhost:27017/cerberus");
   });
   afterAll(async () => {
-    closeAegisServer();
     await clearDB();
     await closeDB();
   });
 
-  beforeEach(() => {
-    socket = io(config.serverURL, {
-      forceNew: true,
-      reconnectionDelay: 0,
-    });
-  });
-  afterEach(async () => {
-    await socket.close();
-  });
+  test("with no data", async () => {
+    const data = await createClient.handle();
 
-  test("with no data", (done) => {
-    socket.emit("client:create");
-
-    socket.on("client:create", (data) => {
-      expect(data.success).toBe(false);
-      expect(data.error).toStrictEqual({
-        name: "NoInputData",
-        message: "No input was provided.",
-      });
-      done();
+    expect(data.success).toBe(false);
+    expect(data.error).toStrictEqual({
+      name: "NoInputData",
+      message: "No input was provided.",
     });
   });
 
-  test("with no admin password", (done) => {
-    socket.emit("client:create", {});
+  test("with no admin password", async () => {
+    const data = await createClient.handle({});
 
-    socket.on("client:create", (data) => {
-      expect(data.success).toBe(false);
-      expect(data.error).toStrictEqual({
-        name: "AdminPasswordNotGiven",
-        message: "Admin password was not provided.",
-      });
-      done();
+    expect(data.success).toBe(false);
+    expect(data.error).toStrictEqual({
+      name: "AdminPasswordNotGiven",
+      message: "Admin password was not provided.",
     });
   });
 
-  test("with no client name", (done) => {
-    socket.emit("client:create", {
+  test("with no client name", async () => {
+    const data = await createClient.handle({
       adminPassword: "xxxx",
     });
 
-    socket.on("client:create", (data) => {
-      expect(data.success).toBe(false);
-      expect(data.error).toStrictEqual({
-        name: "ClientNameNotGiven",
-        message: "Client name was not provided.",
-      });
-      done();
+    expect(data.success).toBe(false);
+    expect(data.error).toStrictEqual({
+      name: "ClientNameNotGiven",
+      message: "Client name was not provided.",
     });
   });
 
-  test("with an invalid password", (done) => {
-    socket.emit("client:create", {
-      adminPassword: "wrong_password",
+  test("with an invalid password", async () => {
+    const data = await createClient.handle({
       clientName: "xxxx",
+      adminPassword: "wrong_password",
     });
 
-    socket.on("client:create", (data) => {
-      expect(data.success).toBe(false);
-      expect(data.error).toStrictEqual({ name: "Unauthorized", message: "" });
-      done();
-    });
+    expect(data.success).toBe(false);
+    expect(data.error).toStrictEqual({ name: "Unauthorized", message: "" });
   });
 
-  test("client:create", (done) => {
-    socket.emit("client:create", {
-      adminPassword: config.PASSWORD,
+  test("create client successfully", async () => {
+    const data = await createClient.handle({
+      adminPassword: PASSWORD,
       clientName: "client_name",
     });
 
-    socket.on("client:create", (data) => {
-      expect(data.success).toBe(true);
-      expect(data.data.name).toBe("client_name");
-      done();
-    });
+    expect(data.success).toBe(true);
+    expect(data.data.name).toBe("client_name");
   });
 });

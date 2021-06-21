@@ -1,31 +1,76 @@
-import { Server, Socket } from "socket.io";
-import { connectToDB } from "@cerberus/mongo";
-import { registerClientHandlers } from "./handlers";
-import { Config } from "./config";
+import {
+  GetClientController,
+  ListClientController,
+  CreateClientController,
+  DeleteClientController,
+  UpdateClientController,
+} from "./controller";
+import { ClientRepository } from "@cerberus/aegis/protocols";
+import { AdminRepository, MainAuthorizer, MainDecoder } from "@cerberus/core";
 
-let server: Server;
+export abstract class Controller {
+  abstract getAdminPassword(): string;
+  abstract getClientRepo(): ClientRepository;
 
-export function closeAegisServer() {
-  if (server) {
-    server.close();
+  getAdminRepo() {
+    return new AdminRepository({
+      password: this.getAdminPassword(),
+    });
+  }
+
+  getAuthorizer() {
+    const decoder = new MainDecoder();
+
+    const authorizer = new MainAuthorizer({
+      decoder,
+      loadAdmin: this.getAdminRepo(),
+    });
+
+    return authorizer;
+  }
+
+  getCreateClientController() {
+    const controller = new CreateClientController({
+      authorizer: this.getAuthorizer(),
+      clientRepo: this.getClientRepo(),
+    });
+
+    return controller;
+  }
+
+  getDeleteClientController() {
+    const controller = new DeleteClientController({
+      authorizer: this.getAuthorizer(),
+      clientRepo: this.getClientRepo(),
+    });
+
+    return controller;
+  }
+
+  getGetClientController() {
+    const controller = new GetClientController({
+      authorizer: this.getAuthorizer(),
+      clientRepo: this.getClientRepo(),
+    });
+
+    return controller;
+  }
+
+  getListClientController() {
+    const controller = new ListClientController({
+      authorizer: this.getAuthorizer(),
+      clientRepo: this.getClientRepo(),
+    });
+
+    return controller;
+  }
+
+  getUpdateClientController() {
+    const controller = new UpdateClientController({
+      authorizer: this.getAuthorizer(),
+      clientRepo: this.getClientRepo(),
+    });
+
+    return controller;
   }
 }
-
-export async function createAegisServer() {
-  const httpServer = Config.getServer();
-  if (httpServer) {
-    server = new Server(httpServer);
-  } else {
-    server = new Server();
-  }
-
-  await connectToDB(Config.getMongoURI());
-
-  server.on("connect", (socket: Socket) => {
-    registerClientHandlers(socket);
-  });
-
-  server.listen(Config.getPort());
-}
-
-export const AegisConfig = Config;

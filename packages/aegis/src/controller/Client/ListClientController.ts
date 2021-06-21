@@ -1,14 +1,25 @@
 import {
+  MainAuthorizer,
+  ListClientRequest,
+  ListClientUseCase,
+} from "@cerberus/core";
+import {
   errorReport,
   NoInputData,
   AdminPasswordNotGiven,
 } from "@cerberus/aegis/errors";
-import { ListClientRequest, ListClientUseCase } from "@cerberus/core";
-import { SocketListClientPresenter } from "@cerberus/aegis/presenters";
-import { authorizer, clientRepoMongoDB } from "@cerberus/aegis/global";
+import { ClientRepository } from "@cerberus/aegis/protocols";
+import { AegisListClientPresenter } from "@cerberus/aegis/presenters";
 
 export class ListClientController {
-  async handle(data: any): Promise<any> {
+  private authorizer: MainAuthorizer;
+  private clientRepo: ClientRepository;
+  constructor(config: ListClientControllerConfig) {
+    this.authorizer = config.authorizer;
+    this.clientRepo = config.clientRepo;
+  }
+
+  async handle(data?: any): Promise<any> {
     try {
       this.validate(data);
       const request: ListClientRequest = this.buildRequest(data);
@@ -35,16 +46,21 @@ export class ListClientController {
   }
 
   private async listClients(request: ListClientRequest) {
-    const socketListClientPresenter = new SocketListClientPresenter();
+    const listClientPresenter = new AegisListClientPresenter();
 
     const usecase = new ListClientUseCase({
-      authorizer,
-      listClients: clientRepoMongoDB,
-      presenter: socketListClientPresenter,
+      authorizer: this.authorizer,
+      listClients: this.clientRepo,
+      presenter: listClientPresenter,
     });
 
     await usecase.execute(request);
 
-    return socketListClientPresenter.getData();
+    return listClientPresenter.getData();
   }
+}
+
+interface ListClientControllerConfig {
+  authorizer: MainAuthorizer;
+  clientRepo: ClientRepository;
 }

@@ -1,15 +1,26 @@
 import {
+  MainAuthorizer,
+  DeleteClientRequest,
+  DeleteClientUseCase,
+} from "@cerberus/core";
+import {
   errorReport,
   NoInputData,
   IdNotProvided,
   AdminPasswordNotGiven,
 } from "@cerberus/aegis/errors";
-import { authorizer, clientRepoMongoDB } from "@cerberus/aegis/global";
-import { SocketDeleteClientPresenter } from "@cerberus/aegis/presenters";
-import { DeleteClientRequest, DeleteClientUseCase } from "@cerberus/core";
-
+import { ClientRepository } from "@cerberus/aegis/protocols";
+import { AegisDeleteClientPresenter } from "@cerberus/aegis/presenters";
 export class DeleteClientController {
-  async handle(data: any): Promise<any> {
+  private authorizer: MainAuthorizer;
+  private clientRepo: ClientRepository;
+
+  constructor(config: DeleteClientControllerConfig) {
+    this.authorizer = config.authorizer;
+    this.clientRepo = config.clientRepo;
+  }
+
+  async handle(data?: any): Promise<any> {
     try {
       this.validate(data);
       const request: DeleteClientRequest = this.buildRequest(data);
@@ -41,16 +52,21 @@ export class DeleteClientController {
   }
 
   private async deleteClient(request: DeleteClientRequest) {
-    const socketDeleteClientPresenter = new SocketDeleteClientPresenter();
+    const deleteClientPresenter = new AegisDeleteClientPresenter();
 
     const usecase = new DeleteClientUseCase({
-      authorizer,
-      deleteClient: clientRepoMongoDB,
-      presenter: socketDeleteClientPresenter,
+      authorizer: this.authorizer,
+      deleteClient: this.clientRepo,
+      presenter: deleteClientPresenter,
     });
 
     await usecase.execute(request);
 
-    return socketDeleteClientPresenter.getData();
+    return deleteClientPresenter.getData();
   }
+}
+
+interface DeleteClientControllerConfig {
+  authorizer: MainAuthorizer;
+  clientRepo: ClientRepository;
 }

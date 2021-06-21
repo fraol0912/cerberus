@@ -1,123 +1,98 @@
-import { io, Socket } from "socket.io-client";
-import { closeDB, clearDB } from "@cerberus/mongo";
-import { config } from "@cerberus/aegis/config/test";
-import { clientRepoMongoDB } from "@cerberus/aegis/global/clientRepo";
-import { closeAegisServer, createAegisServer } from "@cerberus/aegis/main";
+import { testController } from "@cerberus/aegis/test";
+import { GetClientController } from "./GetClientController";
+import { clearDB, closeDB, connectToDB } from "@cerberus/mongo";
+import { CreateClientController } from "./CreateClientController";
 
-describe("client:get", () => {
-  let socket: Socket;
+let createClient: CreateClientController =
+  testController.getCreateClientController();
+let getClient: GetClientController = testController.getGetClientController();
+
+const PASSWORD = Buffer.from("password", "utf-8").toString("base64");
+
+describe("Get Client Controller", () => {
   beforeAll(async () => {
-    await createAegisServer();
+    await connectToDB("mongodb://localhost:27017/cerberus");
   });
   afterAll(async () => {
-    closeAegisServer();
     await clearDB();
     await closeDB();
   });
 
-  beforeEach(() => {
-    socket = io(config.serverURL, {
-      forceNew: true,
-      reconnectionDelay: 0,
-    });
-  });
-  afterEach(async () => {
-    await socket.close();
-  });
+  test("with no data", async () => {
+    const data = await getClient.handle();
 
-  test("with no data", (done) => {
-    socket.emit("client:get");
-
-    socket.on("client:get", (data) => {
-      expect(data.success).toBe(false);
-      expect(data.error).toStrictEqual({
-        name: "NoInputData",
-        message: "No input was provided.",
-      });
-      done();
+    expect(data.success).toBe(false);
+    expect(data.error).toStrictEqual({
+      name: "NoInputData",
+      message: "No input was provided.",
     });
   });
 
-  test("with no admin password", (done) => {
-    socket.emit("client:get", {});
+  test("with no admin password", async () => {
+    const data = await getClient.handle({});
 
-    socket.on("client:get", (data) => {
-      expect(data.success).toBe(false);
-      expect(data.error).toStrictEqual({
-        name: "AdminPasswordNotGiven",
-        message: "Admin password was not provided.",
-      });
-      done();
+    expect(data.success).toBe(false);
+    expect(data.error).toStrictEqual({
+      name: "AdminPasswordNotGiven",
+      message: "Admin password was not provided.",
     });
   });
 
-  test("with no client id", (done) => {
-    socket.emit("client:get", {
+  test("with no client id", async () => {
+    const data = await getClient.handle({
       adminPassword: "xxxx",
     });
 
-    socket.on("client:get", (data) => {
-      expect(data.success).toBe(false);
-      expect(data.error).toStrictEqual({
-        name: "IdNotProvidedError",
-        message: "No id was provided, couldn't find the client",
-      });
-      done();
+    expect(data.success).toBe(false);
+    expect(data.error).toStrictEqual({
+      name: "IdNotProvidedError",
+      message: "No id was provided, couldn't find the client",
     });
   });
 
-  test("with an invalid client id", (done) => {
-    socket.emit("client:get", {
-      adminPassword: config.PASSWORD,
+  test("with an invalid client id", async () => {
+    const data = await getClient.handle({
       clientId: "xxxx",
+      adminPassword: PASSWORD,
     });
 
-    socket.on("client:get", (data) => {
-      expect(data.success).toBe(false);
-      expect(data.error).toStrictEqual({ name: "InvalidId", message: "" });
-      done();
-    });
+    expect(data.success).toBe(false);
+    expect(data.error).toStrictEqual({ name: "InvalidId", message: "" });
   });
 
-  test("with an invalid password", (done) => {
-    socket.emit("client:get", {
+  test("with an invalid password", async () => {
+    const data = await getClient.handle({
+      clientId: "xxxx",
       adminPassword: "wrong_password",
-      clientId: "xxxx",
     });
 
-    socket.on("client:get", (data) => {
-      expect(data.success).toBe(false);
-      expect(data.error).toStrictEqual({ name: "Unauthorized", message: "" });
-      done();
-    });
+    expect(data.success).toBe(false);
+    expect(data.error).toStrictEqual({ name: "Unauthorized", message: "" });
   });
 
-  test("with an id that doesn't exist but is valid", (done) => {
-    socket.emit("client:get", {
-      adminPassword: config.PASSWORD,
+  test("with an id that doesn't exist but is valid", async () => {
+    const data = await getClient.handle({
+      adminPassword: PASSWORD,
       clientId: "60c48c7a9732777bd5fdca2a",
     });
 
-    socket.on("client:get", (data) => {
-      expect(data.success).toBe(false);
-      expect(data.error).toStrictEqual({ name: "ClientNotFound", message: "" });
-      done();
-    });
+    expect(data.success).toBe(false);
+    expect(data.error).toStrictEqual({ name: "ClientNotFound", message: "" });
   });
 
-  test("client:get", (done) => {
-    clientRepoMongoDB.addClient({ name: "client_name" }).then((client) => {
-      socket.emit("client:get", {
-        adminPassword: config.PASSWORD,
-        clientId: client.getId(),
-      });
-
-      socket.on("client:get", (data) => {
-        expect(data.success).toBe(true);
-        expect(data.data.id).toBe(client.getId());
-        expect(data.data.name).toBe(client.getName());
-        done();
-      });
+  test("Get Client Successfully", async () => {
+    const client = await createClient.handle({
+      adminPassword: PASSWORD,
+      clientName: "client_name",
     });
+
+    const data = await getClient.handle({
+      adminPassword: PASSWORD,
+      clientId: client.data.id,
+    });
+
+    expect(data.success).toBe(true);
+    expect(data.data.id).toBe(client.data.id);
+    expect(data.data.name).toBe(client.data.name);
   });
 });

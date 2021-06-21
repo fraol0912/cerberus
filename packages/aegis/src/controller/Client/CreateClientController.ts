@@ -1,15 +1,27 @@
 import {
+  MainAuthorizer,
+  CreateClientRequest,
+  CreateClientUseCase,
+} from "@cerberus/core";
+import {
   errorReport,
   NoInputData,
   ClientNameNotGiven,
   AdminPasswordNotGiven,
 } from "@cerberus/aegis/errors";
-import { authorizer, clientRepoMongoDB } from "@cerberus/aegis/global";
-import { SocketCreateClientPresenter } from "@cerberus/aegis/presenters";
-import { CreateClientRequest, CreateClientUseCase } from "@cerberus/core";
+import { ClientRepository } from "@cerberus/aegis/protocols";
+import { AegisCreateClientPresenter } from "@cerberus/aegis/presenters";
 
 export class CreateClientController {
-  async handle(data: any): Promise<any> {
+  private authorizer: MainAuthorizer;
+  private clientRepo: ClientRepository;
+
+  constructor(config: CreateClientControllerConfig) {
+    this.authorizer = config.authorizer;
+    this.clientRepo = config.clientRepo;
+  }
+
+  async handle(data?: any): Promise<any> {
     try {
       this.validate(data);
       const request: CreateClientRequest = this.buildRequest(data);
@@ -41,16 +53,21 @@ export class CreateClientController {
   }
 
   private async createClient(request: CreateClientRequest) {
-    const socketCreateClientPresenter = new SocketCreateClientPresenter();
+    const createClientPresenter = new AegisCreateClientPresenter();
 
     const usecase = new CreateClientUseCase({
-      authorizer: authorizer,
-      addClient: clientRepoMongoDB,
-      presenter: socketCreateClientPresenter,
+      addClient: this.clientRepo,
+      authorizer: this.authorizer,
+      presenter: createClientPresenter,
     });
 
     await usecase.execute(request);
 
-    return socketCreateClientPresenter.getData();
+    return createClientPresenter.getData();
   }
+}
+
+interface CreateClientControllerConfig {
+  authorizer: MainAuthorizer;
+  clientRepo: ClientRepository;
 }
