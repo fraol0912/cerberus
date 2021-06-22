@@ -1,23 +1,18 @@
 import { testController } from "@cerberus/aegis/test";
-import { clearDB, closeDB, connectToDB } from "@cerberus/mongo";
 import { CreateClientController } from "./CreateClientController";
 import { DeleteClientController } from "./DeleteClientController";
 
-let deleteClient: DeleteClientController =
+const deleteClient: DeleteClientController =
   testController.getDeleteClientController();
-let createClient: CreateClientController =
+const createClient: CreateClientController =
   testController.getCreateClientController();
+
+const clientRepo = testController.getClientRepo();
 
 const PASSWORD = Buffer.from("password", "utf-8").toString("base64");
 
 describe("Delete Client Controller", () => {
-  beforeAll(async () => {
-    await connectToDB("mongodb://localhost:27017/cerberus");
-  });
-  afterAll(async () => {
-    await clearDB();
-    await closeDB();
-  });
+  afterEach(() => clientRepo.clear());
 
   test("with no data", async () => {
     const data = await deleteClient.handle();
@@ -51,30 +46,20 @@ describe("Delete Client Controller", () => {
     });
   });
 
-  test("with an invalid client id", async () => {
-    const data = await deleteClient.handle({
-      clientId: "xxxx",
-      adminPassword: PASSWORD,
-    });
-
-    expect(data.success).toBe(true);
-    expect(data.data).toStrictEqual({ deleted: false });
-  });
-
   test("with an invalid password", async () => {
     const data = await deleteClient.handle({
-      adminPassword: "wrong_password",
       clientId: "xxxx",
+      adminPassword: "wrong_password",
     });
 
     expect(data.success).toBe(false);
     expect(data.error).toStrictEqual({ name: "Unauthorized", message: "" });
   });
 
-  test("with an id that doesn't exist but is valid", async () => {
+  test("with an id that doesn't exist", async () => {
     const data = await deleteClient.handle({
       adminPassword: PASSWORD,
-      clientId: "60c48c7a9732777bd5fdca2a",
+      clientId: "id",
     });
 
     expect(data.success).toBe(true);

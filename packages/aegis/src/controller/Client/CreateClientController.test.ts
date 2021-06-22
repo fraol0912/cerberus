@@ -1,20 +1,14 @@
 import { testController } from "@cerberus/aegis/test";
-import { clearDB, closeDB, connectToDB } from "@cerberus/mongo";
 import { CreateClientController } from "./CreateClientController";
 
-let createClient: CreateClientController =
+const createClient: CreateClientController =
   testController.getCreateClientController();
+const clientRepo = testController.getClientRepo();
 
 const PASSWORD = Buffer.from("password", "utf-8").toString("base64");
 
 describe("Create Client Controller", () => {
-  beforeAll(async () => {
-    await connectToDB("mongodb://localhost:27017/cerberus");
-  });
-  afterAll(async () => {
-    await clearDB();
-    await closeDB();
-  });
+  afterEach(() => clientRepo.clear());
 
   test("with no data", async () => {
     const data = await createClient.handle();

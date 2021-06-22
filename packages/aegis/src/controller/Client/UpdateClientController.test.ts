@@ -1,23 +1,18 @@
 import { testController } from "@cerberus/aegis/test";
-import { clearDB, closeDB, connectToDB } from "@cerberus/mongo";
 import { CreateClientController } from "./CreateClientController";
 import { UpdateClientController } from "./UpdateClientController";
 
-let updateClient: UpdateClientController =
+const updateClient: UpdateClientController =
   testController.getUpdateClientController();
-let createClient: CreateClientController =
+const createClient: CreateClientController =
   testController.getCreateClientController();
+
+const clientRepo = testController.getClientRepo();
 
 const PASSWORD = Buffer.from("password", "utf-8").toString("base64");
 
 describe("Update Client Controller", () => {
-  beforeAll(async () => {
-    await connectToDB("mongodb://localhost:27017/cerberus");
-  });
-  afterAll(async () => {
-    await clearDB();
-    await closeDB();
-  });
+  afterEach(() => clientRepo.clear());
 
   test("with no data", async () => {
     const data = await updateClient.handle();
@@ -75,22 +70,11 @@ describe("Update Client Controller", () => {
     expect(data.error).toStrictEqual({ name: "Unauthorized", message: "" });
   });
 
-  test("with an invalid client id", async () => {
-    const data = await updateClient.handle({
-      clientId: "xxxx",
-      adminPassword: PASSWORD,
-      clientName: "client_name",
-    });
-
-    expect(data.success).toBe(false);
-    expect(data.error).toStrictEqual({ name: "InvalidId", message: "" });
-  });
-
-  test("with an id that doesn't exist but is valid", async () => {
+  test("with an id that doesn't exist", async () => {
     const data = await updateClient.handle({
       adminPassword: PASSWORD,
       clientName: "client_name",
-      clientId: "60c48c7a9732777bd5fdca2a",
+      clientId: "id",
     });
 
     expect(data.success).toBe(false);

@@ -1,22 +1,17 @@
 import { testController } from "@cerberus/aegis/test";
 import { GetClientController } from "./GetClientController";
-import { clearDB, closeDB, connectToDB } from "@cerberus/mongo";
 import { CreateClientController } from "./CreateClientController";
 
-let createClient: CreateClientController =
+const createClient: CreateClientController =
   testController.getCreateClientController();
-let getClient: GetClientController = testController.getGetClientController();
+const getClient: GetClientController = testController.getGetClientController();
+
+const clientRepo = testController.getClientRepo();
 
 const PASSWORD = Buffer.from("password", "utf-8").toString("base64");
 
 describe("Get Client Controller", () => {
-  beforeAll(async () => {
-    await connectToDB("mongodb://localhost:27017/cerberus");
-  });
-  afterAll(async () => {
-    await clearDB();
-    await closeDB();
-  });
+  afterEach(() => clientRepo.clear());
 
   test("with no data", async () => {
     const data = await getClient.handle();
@@ -57,7 +52,7 @@ describe("Get Client Controller", () => {
     });
 
     expect(data.success).toBe(false);
-    expect(data.error).toStrictEqual({ name: "InvalidId", message: "" });
+    expect(data.error).toStrictEqual({ name: "ClientNotFound", message: "" });
   });
 
   test("with an invalid password", async () => {
@@ -70,10 +65,10 @@ describe("Get Client Controller", () => {
     expect(data.error).toStrictEqual({ name: "Unauthorized", message: "" });
   });
 
-  test("with an id that doesn't exist but is valid", async () => {
+  test("with an id that doesn't exist", async () => {
     const data = await getClient.handle({
       adminPassword: PASSWORD,
-      clientId: "60c48c7a9732777bd5fdca2a",
+      clientId: "id",
     });
 
     expect(data.success).toBe(false);
