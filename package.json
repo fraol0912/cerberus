@@ -22,7 +22,8 @@
     "build:core": "cd ./packages/core && yarn build",
     "build:mongo": "cd ./packages/mongo && yarn build",
     "build:aegis": "cd ./packages/aegis && yarn build",
+    "build:memory": "cd ./packages/memory && yarn build",
     "build:helpers": "cd ./packages/helpers && yarn build",
-    "build": "yarn build:helpers && yarn build:core && yarn build:mongo && yarn build:aegis"
+    "build": "yarn build:helpers && yarn build:core && yarn build:mongo && yarn build:memory && yarn build:aegis"
   }
 }
