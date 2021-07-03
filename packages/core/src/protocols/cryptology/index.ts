@@ -1,2 +1,2 @@
+export * from "./Token";
 export * from "./Decoder";
-export * from "./TokenEncrypter";
