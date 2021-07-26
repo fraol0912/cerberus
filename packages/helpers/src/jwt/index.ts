@@ -6,6 +6,9 @@ export const jwt = {
   },
 
   decrypt: async (payload: string, password: string): Promise<any> => {
-    return (await verify(payload, password)) as object;
+    return (await verify(payload, password, {
+      ignoreNotBefore: true,
+      ignoreExpiration: true,
+    })) as object;
   },
 };
