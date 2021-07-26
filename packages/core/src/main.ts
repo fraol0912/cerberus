@@ -16,3 +16,6 @@ export * from "@cerberus/core/main/authorizer";
 
 // repositories
 export * from "@cerberus/core/main/repositories";
+
+// token crypto
+export * from "@cerberus/core/main/jwt";
