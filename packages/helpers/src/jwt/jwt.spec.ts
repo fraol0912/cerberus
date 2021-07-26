@@ -1,4 +1,4 @@
-import { jwt } from "./jwt";
+import { jwt } from ".";
 
 describe("Encrypt", () => {
   it("encrypts an object", async () => {
