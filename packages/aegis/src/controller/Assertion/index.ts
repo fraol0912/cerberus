@@ -1,3 +1,4 @@
 export * from "./GetAssertionController";
-export * from "./CreateAssertionController";
 export * from "./ListAssertionController";
+export * from "./CreateAssertionController";
+export * from "./IntrospectAssertionController";

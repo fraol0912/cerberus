@@ -6,6 +6,7 @@ import {
   AdminPasswordNotGiven,
   AssertionNameNotGiven,
   NotBeforeDateNotGiven,
+  AssertionTokenNotGiven,
   ExpiryDateWasNotANumber,
   NotBeforeDateWasNotANumber,
 } from "@cerberus/aegis/errors";
@@ -34,6 +35,7 @@ function allowedError(error: any) {
     error instanceof AdminPasswordNotGiven ||
     error instanceof AssertionNameNotGiven ||
     error instanceof NotBeforeDateNotGiven ||
+    error instanceof AssertionTokenNotGiven ||
     error instanceof ExpiryDateWasNotANumber ||
     error instanceof NotBeforeDateWasNotANumber
   );

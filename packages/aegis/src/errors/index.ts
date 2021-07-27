@@ -35,3 +35,7 @@ export class NotBeforeDateNotGiven extends Error {
 export class NotBeforeDateWasNotANumber extends Error {
   name = "NotBeforeDateWasNotANumber";
 }
+
+export class AssertionTokenNotGiven extends Error {
+  name = "AssertionTokenNotGiven";
+}

@@ -1,10 +1,12 @@
 import {
+  AssertionResponse,
   GetAssertionResponse,
   GetAssertionPresenter,
   ListAssertionPresenter,
   CreateAssertionResponse,
   CreateAssertionPresenter,
-  AssertionResponse,
+  IntrospectAssertionResponse,
+  IntrospectAssertionPresenter,
 } from "@cerberus/core";
 import { ClientModel } from "./ClientPresenter";
 
@@ -118,6 +120,30 @@ export class AegisListAssertionPresenter implements ListAssertionPresenter {
             valid: assertion.valid,
           };
         }),
+      },
+    };
+  }
+
+  getData() {
+    return this.data;
+  }
+}
+
+export class AegisIntrospectAssertionPresenter
+  implements IntrospectAssertionPresenter
+{
+  private data: {
+    success: true;
+    data: {
+      active: boolean;
+    };
+  };
+
+  async present(data: IntrospectAssertionResponse) {
+    this.data = {
+      success: true,
+      data: {
+        active: data.valid,
       },
     };
   }

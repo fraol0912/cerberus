@@ -11,6 +11,7 @@ import {
   GetAssertionController,
   ListAssertionController,
   CreateAssertionController,
+  IntrospectAssertionController,
 } from "./controller";
 import {
   MainDecoder,
@@ -129,6 +130,15 @@ export abstract class Controller {
       authorizer: this.getAuthorizer(),
       clientRepo: this.getClientRepo(),
       assertionRepo: this.getAssertionRepo(),
+    });
+  }
+
+  getIntrospectAssertionController() {
+    return new IntrospectAssertionController({
+      decrypter: this.getTokenCrypto(),
+      clientRepo: this.getClientRepo(),
+      assertionRepo: this.getAssertionRepo(),
+      assertionDetails: this.getAssertionDetails(),
     });
   }
 }
