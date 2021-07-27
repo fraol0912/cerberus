@@ -135,4 +135,42 @@ describe("Assertion Repository", () => {
       );
     });
   });
+
+  describe("Delete Assertion", () => {
+    it("doesn't delete an assertion with an invalid id", async () => {
+      const deleted = await assertionRepo.deleteAssertion("id");
+
+      expect(deleted).toBe(false);
+    });
+
+    it("doesn't delete an assertion that doesn't exist", async () => {
+      const deleted = await assertionRepo.deleteAssertion(
+        "60c48c7a9732777bd5fdca2a"
+      );
+
+      expect(deleted).toBe(false);
+    });
+
+    it("deletes an assertion", async () => {
+      const client = await clientRepo.addClient({
+        name: "client",
+      });
+
+      const now = Date.now();
+      const assertion = await assertionRepo.addAssertion({
+        name: "name",
+        issuer: "issuer",
+        audience: "audience",
+        subject: client.getId(),
+
+        initiatedAt: new Date(now),
+        notBefore: new Date(now + 10000),
+        expiresAt: new Date(now + 30000),
+      });
+
+      const deleted = await assertionRepo.deleteAssertion(assertion.getId());
+
+      expect(deleted).toBe(true);
+    });
+  });
 });

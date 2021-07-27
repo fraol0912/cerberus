@@ -4,13 +4,18 @@ import {
   GetAssertionGateway,
   ListAssertionGateway,
   AddAssertionParameter,
+  DeleteAssertionGateway,
 } from "@cerberus/core";
 import { AssertionModel } from "../models";
 import { isValidObjectId } from "mongoose";
 import { InvalidId, AssertionNotFound } from "../errors";
 
 export class AssertionRepository
-  implements AddAssertionGateway, GetAssertionGateway, ListAssertionGateway
+  implements
+    AddAssertionGateway,
+    GetAssertionGateway,
+    ListAssertionGateway,
+    DeleteAssertionGateway
 {
   async addAssertion(params: AddAssertionParameter): Promise<Assertion> {
     const assertion = await AssertionModel.create({
@@ -80,5 +85,21 @@ export class AssertionRepository
     });
 
     return assertions;
+  }
+
+  async deleteAssertion(id: string) {
+    if (!isValidObjectId(id)) {
+      return false;
+    }
+
+    const assertion = await AssertionModel.findById(id);
+
+    if (!assertion) {
+      return false;
+    }
+
+    await assertion.delete();
+
+    return true;
   }
 }

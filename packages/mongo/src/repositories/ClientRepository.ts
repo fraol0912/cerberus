@@ -82,7 +82,7 @@ export class ClientRepository
       return false;
     }
 
-    await ClientModel.findByIdAndDelete(id);
+    await client.delete();
 
     return true;
   }
