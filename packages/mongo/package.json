@@ -11,7 +11,7 @@
     "dist"
   ],
   "scripts": {
-    "test": "yarn jest",
+    "test": "yarn jest -i",
     "build": "yarn rollup -c",
     "clean": "yarn rimraf dist coverage .cache"
   },
