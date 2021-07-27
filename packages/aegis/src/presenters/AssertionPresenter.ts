@@ -4,6 +4,7 @@ import {
   GetAssertionPresenter,
   ListAssertionPresenter,
   CreateAssertionResponse,
+  RevokeAssertionPresenter,
   CreateAssertionPresenter,
   IntrospectAssertionResponse,
   IntrospectAssertionPresenter,
@@ -144,6 +145,28 @@ export class AegisIntrospectAssertionPresenter
       success: true,
       data: {
         active: data.valid,
+      },
+    };
+  }
+
+  getData() {
+    return this.data;
+  }
+}
+
+export class AegisRevokeAssertionPresenter implements RevokeAssertionPresenter {
+  private data: {
+    success: true;
+    data: {
+      revoked: boolean;
+    };
+  };
+
+  async present(revoked: boolean) {
+    this.data = {
+      success: true,
+      data: {
+        revoked,
       },
     };
   }

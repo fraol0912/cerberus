@@ -1,22 +1,22 @@
 import { testController } from "@cerberus/aegis/test";
-import { GetAssertionController } from "./GetAssertionController";
+import { RevokeAssertionController } from "./RevokeAssertionController";
 
-const getAssertion: GetAssertionController =
-  testController.getGetAssertionController();
+const revokeAssertion: RevokeAssertionController =
+  testController.getRevokeAssertionController();
 
 const clientRepo = testController.getClientRepo();
 const assertionRepo = testController.getAssertionRepo();
 
 const PASSWORD = Buffer.from("password", "utf-8").toString("base64");
 
-describe("Get Assertion Controller", () => {
+describe("Revoke Assertion Controller", () => {
   afterEach(() => {
     clientRepo.clear();
     assertionRepo.clear();
   });
 
   test("with no data", async () => {
-    const data = await getAssertion.handle();
+    const data = await revokeAssertion.handle();
 
     expect(data.success).toBe(false);
     expect(data.error).toStrictEqual({
@@ -26,7 +26,7 @@ describe("Get Assertion Controller", () => {
   });
 
   test("with no admin password", async () => {
-    const data = await getAssertion.handle({});
+    const data = await revokeAssertion.handle({});
 
     expect(data.success).toBe(false);
     expect(data.error).toStrictEqual({
@@ -36,7 +36,7 @@ describe("Get Assertion Controller", () => {
   });
 
   test("with no assertion id", async () => {
-    const data = await getAssertion.handle({
+    const data = await revokeAssertion.handle({
       adminPassword: PASSWORD,
     });
 
@@ -62,22 +62,12 @@ describe("Get Assertion Controller", () => {
       notBefore: new Date(now + 30000),
     });
 
-    const data = await getAssertion.handle({
+    const data = await revokeAssertion.handle({
       adminPassword: PASSWORD,
       assertionId: assertion.getId(),
     });
 
     expect(data.success).toBe(true);
-    expect(data.data.id).toBe(assertion.getId());
-    expect(data.data.name).toBe(assertion.getName());
-    expect(data.data.issuer).toBe(assertion.getIssuer());
-    expect(data.data.audience).toBe(assertion.getAudience());
-    expect(data.data.expiresAt).toBe(assertion.getExpiresAt().getTime());
-    expect(data.data.notBefore).toBe(assertion.getNotBefore().getTime());
-    expect(data.data.initiatedAt).toBe(assertion.getInitializedAt().getTime());
-    expect(data.data.valid).toBe(true);
-
-    expect(data.data.subject.id).toBe(client.getId());
-    expect(data.data.subject.name).toBe(client.getName());
+    expect(data.data.revoked).toBe(true);
   });
 });

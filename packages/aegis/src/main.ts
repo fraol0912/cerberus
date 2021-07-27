@@ -11,6 +11,7 @@ import {
   GetAssertionController,
   ListAssertionController,
   CreateAssertionController,
+  RevokeAssertionController,
   IntrospectAssertionController,
 } from "./controller";
 import {
@@ -139,6 +140,13 @@ export abstract class Controller {
       clientRepo: this.getClientRepo(),
       assertionRepo: this.getAssertionRepo(),
       assertionDetails: this.getAssertionDetails(),
+    });
+  }
+
+  getRevokeAssertionController() {
+    return new RevokeAssertionController({
+      authorizer: this.getAuthorizer(),
+      assertionRepo: this.getAssertionRepo(),
     });
   }
 }
