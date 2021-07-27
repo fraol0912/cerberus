@@ -110,4 +110,30 @@ describe("Assertion Repository", () => {
       addedAssertion.getInitializedAt()
     );
   });
+
+  it("doesn't delete an assertion that doesn't exist", async () => {
+    const deleted = await assertionRepo.deleteAssertion("id");
+    expect(deleted).toBe(false);
+  });
+
+  it("deletes an assertion that exists", async () => {
+    const initiatedAt = new Date();
+    const expiresAt = new Date(Date.now() + 2000);
+    const notBefore = new Date(Date.now() + 1000);
+
+    const assertion = await assertionRepo.addAssertion({
+      name: "name",
+      issuer: "issuer",
+      subject: "subject",
+      audience: "audience",
+
+      expiresAt,
+      notBefore,
+      initiatedAt,
+    });
+
+    const deleted = await assertionRepo.deleteAssertion(assertion.getId());
+
+    expect(deleted).toBe(true);
+  });
 });

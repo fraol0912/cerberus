@@ -2,14 +2,19 @@ import {
   Assertion,
   AddAssertionGateway,
   GetAssertionGateway,
-  AddAssertionParameter,
   ListAssertionGateway,
+  AddAssertionParameter,
+  DeleteAssertionGateway,
 } from "@cerberus/core";
 import { generateId } from "../helpers";
 import { AssertionNotFound } from "../errors";
 
 export class AssertionRepository
-  implements AddAssertionGateway, GetAssertionGateway, ListAssertionGateway
+  implements
+    AddAssertionGateway,
+    GetAssertionGateway,
+    ListAssertionGateway,
+    DeleteAssertionGateway
 {
   private hashMap: Map<string, Assertion>;
   constructor() {
@@ -46,6 +51,16 @@ export class AssertionRepository
 
   async listAssertions() {
     return Array.from(this.hashMap.values());
+  }
+
+  async deleteAssertion(id: string) {
+    const assertion = this.hashMap.get(id);
+
+    if (!assertion) {
+      return false;
+    }
+
+    return true;
   }
 
   clear() {
