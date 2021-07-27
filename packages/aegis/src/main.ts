@@ -1,16 +1,32 @@
 import {
+  ClientRepository,
+  AssertionRepository,
+} from "@cerberus/aegis/protocols";
+import {
   GetClientController,
   ListClientController,
   CreateClientController,
   DeleteClientController,
   UpdateClientController,
+  CreateAssertionController,
 } from "./controller";
-import { ClientRepository } from "@cerberus/aegis/protocols";
-import { AdminRepository, MainAuthorizer, MainDecoder } from "@cerberus/core";
+import {
+  MainDecoder,
+  JwtCryptology,
+  MainAuthorizer,
+  AdminRepository,
+  AssertionDetailsRepository,
+} from "@cerberus/core";
 
 export abstract class Controller {
+  abstract getIssuerName(): string;
   abstract getAdminPassword(): string;
+  abstract getAudienceField(): string;
+  abstract getEncryptionPassword(): string;
+
+  // Repositories
   abstract getClientRepo(): ClientRepository;
+  abstract getAssertionRepo(): AssertionRepository;
 
   getAdminRepo() {
     return new AdminRepository({
@@ -29,6 +45,18 @@ export abstract class Controller {
     return authorizer;
   }
 
+  getTokenCrypto() {
+    return new JwtCryptology(this.getEncryptionPassword());
+  }
+
+  getAssertionDetails() {
+    return new AssertionDetailsRepository({
+      issuer: this.getIssuerName(),
+      audience: this.getAudienceField(),
+    });
+  }
+
+  // Client Controllers
   getCreateClientController() {
     const controller = new CreateClientController({
       authorizer: this.getAuthorizer(),
@@ -72,5 +100,16 @@ export abstract class Controller {
     });
 
     return controller;
+  }
+
+  // Assertion Controllers
+  getCreateAssertionController() {
+    return new CreateAssertionController({
+      encrypter: this.getTokenCrypto(),
+      authorizer: this.getAuthorizer(),
+      clientRepo: this.getClientRepo(),
+      assertionRepo: this.getAssertionRepo(),
+      assertionDetails: this.getAssertionDetails(),
+    });
   }
 }

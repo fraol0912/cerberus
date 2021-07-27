@@ -15,3 +15,23 @@ export class ClientNameNotGiven extends Error {
 export class AdminPasswordNotGiven extends Error {
   name = "AdminPasswordNotGiven";
 }
+
+export class AssertionNameNotGiven extends Error {
+  name = "AssertionNameNotGiven";
+}
+
+export class ExpiryDateNotGiven extends Error {
+  name = "ExpiryDateNotGiven";
+}
+
+export class ExpiryDateWasNotANumber extends Error {
+  name = "ExpiryDateWasNotANumber";
+}
+
+export class NotBeforeDateNotGiven extends Error {
+  name = "NotBeforeDateNotGiven";
+}
+
+export class NotBeforeDateWasNotANumber extends Error {
+  name = "NotBeforeDateWasNotANumber";
+}
