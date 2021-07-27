@@ -1,8 +1,10 @@
 import {
   GetAssertionResponse,
   GetAssertionPresenter,
+  ListAssertionPresenter,
   CreateAssertionResponse,
   CreateAssertionPresenter,
+  AssertionResponse,
 } from "@cerberus/core";
 import { ClientModel } from "./ClientPresenter";
 
@@ -82,6 +84,40 @@ export class AegisGetAssertionPresenter implements GetAssertionPresenter {
 
         token: data.token,
         valid: data.valid,
+      },
+    };
+  }
+
+  getData() {
+    return this.data;
+  }
+}
+
+export class AegisListAssertionPresenter implements ListAssertionPresenter {
+  private data: {
+    success: true;
+    data: {
+      assertions: Omit<AssertionModel, "token">[];
+    };
+  };
+
+  async present(assertions: AssertionResponse[]) {
+    this.data = {
+      success: true,
+      data: {
+        assertions: assertions.map((assertion) => {
+          return {
+            id: assertion.id,
+            name: assertion.name,
+            issuer: assertion.issuer,
+            subject: assertion.subject,
+            audience: assertion.audience,
+            expiresAt: assertion.expiresAt.getTime(),
+            notBefore: assertion.notBefore.getTime(),
+            initiatedAt: assertion.initiatedAt.getTime(),
+            valid: assertion.valid,
+          };
+        }),
       },
     };
   }
