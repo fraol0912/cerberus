@@ -29,7 +29,7 @@ export class ListAssertionController {
     try {
       this.validate(data);
       const request: ListAssertionRequest = this.buildRequest(data);
-      return await this.getAssertion(request);
+      return await this.listAssertion(request);
     } catch (error) {
       return errorReport(error);
     }
@@ -51,7 +51,7 @@ export class ListAssertionController {
     };
   }
 
-  private async getAssertion(request: ListAssertionRequest) {
+  private async listAssertion(request: ListAssertionRequest) {
     const listAssertionPresenter = new AegisListAssertionPresenter();
 
     const usecase = new ListAssertionUseCase({
