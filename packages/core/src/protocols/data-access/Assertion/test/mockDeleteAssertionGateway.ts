@@ -1,5 +1,4 @@
 import { DeleteAssertionGateway } from "../DeleteAssertionGateway";
-import { makeAssertion } from "@cerberus/core/entities/Assertion/test";
 
 export class DeleteAssertionGatewaySpy implements DeleteAssertionGateway {
   throw: boolean;
@@ -11,6 +10,6 @@ export class DeleteAssertionGatewaySpy implements DeleteAssertionGateway {
     }
 
     this.calledWithId = id;
-    return Promise.resolve(makeAssertion());
+    return Promise.resolve(true);
   }
 }

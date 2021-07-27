@@ -25,9 +25,9 @@ export class RevokeAssertionUseCase implements UseCase {
       throw new UnauthorizedError();
     }
 
-    await this.deleteAssertion.deleteAssertion(request.id);
+    const deleted = await this.deleteAssertion.deleteAssertion(request.id);
 
-    await this.presenter.present(true);
+    await this.presenter.present(deleted);
   }
 }
 
