@@ -6,11 +6,11 @@ const URI = "mongodb://localhost:27017/cerberus";
 
 describe("Client Repository", () => {
   let repo: ClientRepository;
-  beforeAll(async () => {
+  beforeEach(async () => {
     await connectToDB(URI);
     repo = new ClientRepository();
   });
-  afterAll(async () => {
+  afterEach(async () => {
     await clearDB();
     await closeDB();
   });
@@ -106,11 +106,15 @@ describe("Client Repository", () => {
 
   describe("List Clients", () => {
     it("gets a list of clients", async () => {
+      const client = await repo.addClient({
+        name: "client",
+      });
+
       const clients = await repo.listClients();
 
-      expect(clients.length).toBe(2);
-      expect(clients[0].getName()).toBe("client");
-      expect(clients[1].getName()).toBe("client 2-updated");
+      expect(clients.length).toBe(1);
+      expect(client.getId()).toBe(clients[0].getId());
+      expect(client.getName()).toBe(clients[0].getName());
     });
   });
 });
