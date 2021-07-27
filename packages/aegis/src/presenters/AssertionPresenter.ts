@@ -1,4 +1,6 @@
 import {
+  GetAssertionResponse,
+  GetAssertionPresenter,
   CreateAssertionResponse,
   CreateAssertionPresenter,
 } from "@cerberus/core";
@@ -26,6 +28,41 @@ export class AegisCreateAssertionPresenter implements CreateAssertionPresenter {
   };
 
   async present(data: CreateAssertionResponse) {
+    this.data = {
+      success: true,
+      data: {
+        id: data.id,
+        name: data.name,
+        issuer: data.issuer,
+        audience: data.audience,
+        subject: {
+          id: data.subject.id,
+          name: data.subject.name,
+        },
+
+        // time
+        expiresAt: data.expiresAt.getTime(),
+        notBefore: data.notBefore.getTime(),
+        initiatedAt: data.initiatedAt.getTime(),
+
+        token: data.token,
+        valid: data.valid,
+      },
+    };
+  }
+
+  getData() {
+    return this.data;
+  }
+}
+
+export class AegisGetAssertionPresenter implements GetAssertionPresenter {
+  private data: {
+    success: true;
+    data: AssertionModel;
+  };
+
+  async present(data: GetAssertionResponse) {
     this.data = {
       success: true,
       data: {

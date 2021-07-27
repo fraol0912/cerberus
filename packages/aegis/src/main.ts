@@ -8,6 +8,7 @@ import {
   CreateClientController,
   DeleteClientController,
   UpdateClientController,
+  GetAssertionController,
   CreateAssertionController,
 } from "./controller";
 import {
@@ -110,6 +111,15 @@ export abstract class Controller {
       clientRepo: this.getClientRepo(),
       assertionRepo: this.getAssertionRepo(),
       assertionDetails: this.getAssertionDetails(),
+    });
+  }
+
+  getGetAssertionController() {
+    return new GetAssertionController({
+      encrypter: this.getTokenCrypto(),
+      authorizer: this.getAuthorizer(),
+      clientRepo: this.getClientRepo(),
+      assertionRepo: this.getAssertionRepo(),
     });
   }
 }
