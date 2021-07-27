@@ -19,7 +19,7 @@ export class ListAssertionController {
   private clientRepo: ClientRepository;
   private assertionRepo: AssertionRepository;
 
-  constructor(config: GetAssertionControllerConfig) {
+  constructor(config: ListAssertionControllerConfig) {
     this.authorizer = config.authorizer;
     this.clientRepo = config.clientRepo;
     this.assertionRepo = config.assertionRepo;
@@ -67,7 +67,7 @@ export class ListAssertionController {
   }
 }
 
-interface GetAssertionControllerConfig {
+interface ListAssertionControllerConfig {
   authorizer: MainAuthorizer;
   clientRepo: ClientRepository;
   assertionRepo: AssertionRepository;
