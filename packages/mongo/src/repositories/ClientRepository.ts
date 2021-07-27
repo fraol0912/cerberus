@@ -7,7 +7,7 @@ import {
   UpdateClientGateway,
   DeleteClientGateway,
   UpdateClientParameter,
-} from "@cerberus/core/";
+} from "@cerberus/core";
 import { ClientModel } from "../models";
 import { isValidObjectId } from "mongoose";
 import { InvalidId, ClientNotFound } from "../errors";
