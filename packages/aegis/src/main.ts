@@ -32,13 +32,13 @@ export abstract class Controller {
   abstract getClientRepo(): ClientRepository;
   abstract getAssertionRepo(): AssertionRepository;
 
-  getAdminRepo() {
+  private getAdminRepo() {
     return new AdminRepository({
       password: this.getAdminPassword(),
     });
   }
 
-  getAuthorizer() {
+  private getAuthorizer() {
     const decoder = new MainDecoder();
 
     const authorizer = new MainAuthorizer({
@@ -49,11 +49,11 @@ export abstract class Controller {
     return authorizer;
   }
 
-  getTokenCrypto() {
+  private getTokenCrypto() {
     return new JwtCryptology(this.getEncryptionPassword());
   }
 
-  getAssertionDetails() {
+  private getAssertionDetails() {
     return new AssertionDetailsRepository({
       issuer: this.getIssuerName(),
       audience: this.getAudienceField(),
