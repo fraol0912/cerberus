@@ -60,6 +60,7 @@ export class AssertionRepository
       return false;
     }
 
+    this.hashMap.delete(id);
     return true;
   }
 
