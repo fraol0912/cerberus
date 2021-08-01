@@ -1,4 +1,9 @@
 import {
+  UnauthorizedError,
+  NotBeforeDateError,
+  ExpirationDateError,
+} from "@cerberus/core";
+import {
   NoInputData,
   IdNotProvided,
   ClientNameNotGiven,
@@ -10,7 +15,6 @@ import {
   ExpiryDateWasNotANumber,
   NotBeforeDateWasNotANumber,
 } from "@cerberus/aegis/errors";
-import { UnauthorizedError } from "@cerberus/core";
 import { InvalidId, ClientNotFound } from "@cerberus/mongo";
 import { ClientNotFound as MemClientNotFound } from "@cerberus/memory";
 
@@ -32,6 +36,8 @@ function allowedError(error: any) {
     error instanceof UnauthorizedError ||
     error instanceof ExpiryDateNotGiven ||
     error instanceof ClientNameNotGiven ||
+    error instanceof NotBeforeDateError ||
+    error instanceof ExpirationDateError ||
     error instanceof AdminPasswordNotGiven ||
     error instanceof AssertionNameNotGiven ||
     error instanceof NotBeforeDateNotGiven ||
