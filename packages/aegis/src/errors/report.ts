@@ -16,7 +16,10 @@ import {
   NotBeforeDateWasNotANumber,
 } from "@cerberus/aegis/errors";
 import { InvalidId, ClientNotFound } from "@cerberus/mongo";
-import { ClientNotFound as MemClientNotFound } from "@cerberus/memory";
+import {
+  ClientNotFound as MemClientNotFound,
+  AssertionNotFound as MemAssertionNotFound,
+} from "@cerberus/memory";
 
 interface ErrorResponse {
   success: false;
@@ -38,6 +41,7 @@ function allowedError(error: any) {
     error instanceof ClientNameNotGiven ||
     error instanceof NotBeforeDateError ||
     error instanceof ExpirationDateError ||
+    error instanceof MemAssertionNotFound ||
     error instanceof AdminPasswordNotGiven ||
     error instanceof AssertionNameNotGiven ||
     error instanceof NotBeforeDateNotGiven ||
