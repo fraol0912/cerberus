@@ -57,6 +57,7 @@ export function errorReport(error: any): ErrorResponse {
       },
     };
   } else {
+    console.log(error);
     return {
       success: false,
       error: {
