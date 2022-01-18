@@ -1,0 +1,9 @@
+{
+  "name": "sample",
+  "adminPassword": "password",
+  "encryptionPassword": "encrypt",
+  "port": 8000,
+  "database": {
+    "name": "memory"
+  }
+}
